@@ -1,7 +1,15 @@
-{% if user.is_authenticated %}
-<p>You are logged in</p>
-{% else %}
-<p>You are not logged in</p>
-{% endif %}
+{% extends "base.html" %}
+{% load bootstrap4 %}
 
-<p>logout page</p>
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p>You have been logged out.</p>
+      <p><a href="{% url 'home' %}">Click here</a> to go to go home.</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

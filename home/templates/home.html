@@ -1,9 +1,26 @@
-{% if user.is_authenticated %}
-<p>You are logged in</p>
-<p><a href="{% url 'accounts-logout' %}">Logout</a></p>
-{% else %}
-<p>You are not logged in</p>
-<p><a href="{% url 'accounts-login' %}">Login</a></p>
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+    	<p>Log in to use the training application.</p>
+    </div>
+  </div>
+</div>
 {% endif %}
 
-<p>home page</p>
+{% if user.is_authenticated %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p>You are logged into the site.</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

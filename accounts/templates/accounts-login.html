@@ -1,39 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
 {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+      {% if form.errors %}
+      <p>Your username and password didn't match. Please try again.</p>
+      {% endif %}
 
-{% if user.is_authenticated %}
-<p>You are logged in</p>
-{% else %}
-<p>You are not logged in</p>
-{% endif %}
+      {% if next %}
+          {% if user.is_authenticated %}
+          <p>Your account doesn't have access to this page. To proceed,
+          please login with an account that has access.</p>
+          {% else %}
+          <p>Please login to see this page.</p>
+          {% endif %}
+      {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
+      {% if not user.is_authenticated %}
+        <p>You are not logged into the site, used this form to authenticate.</p>
+        <form method="post" action="{% url 'accounts-login' %}">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+       
+         {% buttons %}
+          <button type="submit" class="btn btn-primary">
+            Login
+          </button>
+          {% endbuttons %}
 
-<form method="post" action="{% url 'accounts-login' %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
-</form>
+          <input type="hidden" name="next" value="{{ next }}">
+        </form>
+      {% else %}
+      	<p>You are already logged into the site.</p>
+	<p><a href="{% url 'home' %}">Home</a></p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 
 {% endblock %}

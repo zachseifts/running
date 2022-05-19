@@ -1,8 +1,17 @@
-<h1>profile page</h1>
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
 
 {% if user.is_authenticated %}
-<p>You are logged in</p>
-<p><a href="{% url 'home' %}">View the home page</a></p>
-{% else %}
-<p>You are not logged in</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{{ user.username }}'s profile</h1>
+      <p>This is the profile page for {{ user.username }}.</p>
+    </div>
+  </div>
+</div>
 {% endif %}
+
+{% endblock %}
