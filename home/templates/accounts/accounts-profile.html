@@ -24,7 +24,7 @@
             <td>{{ activity.start.timestamp|date:"l, F j, Y" }}</td>
             <td>{{ activity.location }}</td>
             <td>{{ activity.get_total_distance|floatformat:2 }} miles</td>
-            <td><a href="{% url 'activity-detail' activity.id %}">view activity</a></td>
+            <td><a href="{% url 'activity-detail' activity.id %}">view</a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -32,10 +32,11 @@
 
     </div>
     <div class="col-3">
-        <h2>Locations</h2>
-        <ul>
+      <div class="card">
+        <div class="card-header">Locations</div>
+        <ul class="list-group list-group-flush">
         {% for location in locations %}
-        <li>{{ location.name }}</li>
+        <li class="list-group-item">{{ location.name }} <span class="badge badge-dark">{{ location.activity_set.count }}</span></li>
         {% endfor %}
         </ul>
     </div>

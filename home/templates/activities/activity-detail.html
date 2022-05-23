@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load bootstrap4 %}
+
 {% block page_heading %}{{ activity.get_total_distance|floatformat:2 }} miles @ {{ activity.location }}{% endblock %}
 {% block page_subheading %}{{ activity.start.timestamp }} to {{ activity.end.timestamp|date:"g:i a " }}{% endblock %}
 
@@ -18,45 +20,62 @@
         </ul>
       </div>
     </div>
+
     <div class="col">
-      <div class="card">
+      <div class="card mb-2">
         <div class="card-header">Notes</div>
 	<div class="card-body">
           <p class="card-text">{{ activity.notes }}</p>
 	</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Data</div>
+	<div class="card-body">
+        {% buttons %}
+        <button class="btn btn-dark" 
+          type="button"
+          data-toggle="collapse"
+          data-target="#activity-gps-wrapper"
+          aria-expanded="false"
+          aria-controls="activity-gps-controls">View GPS data</button>
+        {% endbuttons %}
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row mb-3">
     <div class="col">
-      <h3>GPS Points and Data</h3>
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">Timestamp</th>
-            <th scope="col">Latitude</th>
-            <th scope="col">Longitude</th>
-            <th scope="col">Altitude</th>
-            <th scope="col">Speed</th>
-            <th scope="col">Cadence</th>
-            <th scope="col">Heart Rate</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for point in activity.get_gps_tracks %}
-          <tr>
-            <td>{{ point.timestamp|date:"g:i:s a" }}</td>
-            <td>{{ point.latitude }}</td>
-            <td>{{ point.longitude }}</td>
-            <td>{{ point.altitude|floatformat:2 }}</td>
-            <td>{{ point.speed }}</td>
-            <td>{{ point.cadence }}</td>
-            <td>{{ point.heart_rate }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="collapse" id="activity-gps-wrapper">
+        <h3>GPS Points and Data</h3>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Timestamp</th>
+              <th scope="col">Latitude</th>
+              <th scope="col">Longitude</th>
+              <th scope="col">Altitude</th>
+              <th scope="col">Speed</th>
+              <th scope="col">Cadence</th>
+              <th scope="col">Heart Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for point in activity.get_gps_tracks %}
+            <tr>
+              <td>{{ point.timestamp|date:"g:i:s a" }}</td>
+              <td>{{ point.latitude }}</td>
+              <td>{{ point.longitude }}</td>
+              <td>{{ point.altitude|floatformat:2 }}</td>
+              <td>{{ point.speed }}</td>
+              <td>{{ point.cadence }}</td>
+              <td>{{ point.heart_rate }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

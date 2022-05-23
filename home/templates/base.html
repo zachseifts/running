@@ -59,14 +59,6 @@
       </div>
     </nav>
 
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          {% bootstrap_messages %}
-        </div>
-      </div>
-    </div>
-
     {% if user.is_authenticated %}
     <div class="wrapper pt-5 pb-5 mb-2" style="background-color: #f7f7f9;">
       <div class="container">
@@ -79,6 +71,15 @@
       </div>
     </div>
     {% endif %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          {% bootstrap_messages %}
+        </div>
+      </div>
+    </div>
+
 
     {% block content %}
     {% endblock %}
