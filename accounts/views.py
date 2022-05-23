@@ -10,5 +10,5 @@ class AccountsProfileView(View):
         activities = Activity.objects.filter(creator=request.user)
         
         context = {'locations': locations, 'activities': activities}
-        return render(request, 'accounts-profile.html', context)
+        return render(request, 'accounts/accounts-profile.html', context)
         

@@ -15,7 +15,7 @@ class LocationCreateView(View):
     '''
     form_class = LocationCreateForm
     form_redirect = '/accounts/profile/'
-    template_name = 'create-location.html'
+    template_name = 'activities/create-location.html'
 
     def get(self, request):
         form = self.form_class()
@@ -39,7 +39,7 @@ class ActivityCreateView(View):
     '''
     form_class = ActivityCreateForm
     form_redirect = '/accounts/profile/'
-    template_name = 'create-activity.html'
+    template_name = 'activities/create-activity.html'
 
     def get(self, request):
         form = self.form_class()
@@ -97,7 +97,7 @@ class ActivityCreateView(View):
 
 
 class ActivityDetailView(View):
-    template_name = 'activity-detail.html'
+    template_name = 'activities/activity-detail.html'
 
     def get(self, request, **kwargs):
         activity_id = kwargs.get('activity_id')
