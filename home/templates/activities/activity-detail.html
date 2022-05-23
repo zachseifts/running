@@ -1,14 +1,10 @@
 {% extends "base.html" %}
 
+{% block page_heading %}{{ activity.location }}{% endblock %}
+{% block page_subheading %}{{ activity.start.timestamp }} to {{ activity.end.timestamp|date:"g:i a " }}{% endblock %}
+
 {% block content %}
 <div class="container">
-
-  <div class="row mb-3">
-    <div class="col">
-      <h1 class="display-4">{{ activity.location }}<br />
-      <small class="text-muted">{{ activity.start.timestamp }} to {{ activity.end.timestamp|date:"g:i a " }}</small></h1>
-    </div>
-  </div>
 
   <div class="row mb-3">
     <div class="col-4">

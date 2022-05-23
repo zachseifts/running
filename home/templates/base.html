@@ -27,7 +27,7 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'accounts-profile' %}{% else %}{% url 'home' %}{% endif %}">Training</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@
             </li>
             {% else %}
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'create-location' %}">Create location</a>
+              <a class="nav-link" href="{% url 'create-location' %}">Create a location</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'create-activity' %}">Create an activity</a>
@@ -65,6 +65,19 @@
         </div>
       </div>
     </div>
+
+    {% if user.is_authenticated %}
+    <div class="wrapper pt-5 pb-5 mb-2" style="background-color: #f7f7f9;">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1 class="display-3">{% block page_heading %}{% endblock %}</h1>
+            <p class="text-muted">{% block page_subheading %}{% endblock %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
 
     {% block content %}
     {% endblock %}

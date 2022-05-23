@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
@@ -10,9 +11,12 @@ from .models import Activity, Lap, Point, Location
 
 import fitdecode
 
-class LocationCreateView(View):
+class LocationCreateView(LoginRequiredMixin, View):
     ''' A view for creating a new location.
     '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+
     form_class = LocationCreateForm
     form_redirect = '/accounts/profile/'
     template_name = 'activities/create-location.html'
@@ -34,9 +38,12 @@ class LocationCreateView(View):
 
         return render(request, self.template_name, {'form': form})
 
-class ActivityCreateView(View):
+class ActivityCreateView(LoginRequiredMixin, View):
     ''' A view that creates a new activity.
     '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+
     form_class = ActivityCreateForm
     form_redirect = '/accounts/profile/'
     template_name = 'activities/create-activity.html'
@@ -96,7 +103,12 @@ class ActivityCreateView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class ActivityDetailView(View):
+class ActivityDetailView(LoginRequiredMixin, View):
+    ''' View the details of an activitiy.
+    '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+
     template_name = 'activities/activity-detail.html'
 
     def get(self, request, **kwargs):

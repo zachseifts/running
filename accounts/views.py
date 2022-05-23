@@ -1,9 +1,15 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import render
 
 from activities.models import Location, Activity
 
-class AccountsProfileView(View):
+class AccountsProfileView(LoginRequiredMixin, View):
+    ''' Profile view for a user.
+    '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+
     def get(self, request):
 
         locations = Location.objects.filter(creator=request.user)
