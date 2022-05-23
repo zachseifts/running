@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-7">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">
+          Submit
+        </button>
+        {% endbuttons %}
+      </form>
+    </div>
+    <div class="col">
+      <p>Create a new Location with this form.</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
