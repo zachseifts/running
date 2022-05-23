@@ -52,6 +52,7 @@ class ActivityCreateView(View):
             activity = Activity(
                 creator = request.user,
                 location = form.cleaned_data['location'],
+                notes = form.cleaned_data['notes'],
             )
             activity.save()
             lap = Lap(

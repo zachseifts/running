@@ -20,6 +20,7 @@ class Activity(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     created = models.DateTimeField('date created', auto_now_add=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
+    notes = models.CharField(max_length = 255, null=True)
 
     def start(self):
         ''' Returns the start of this activity.
