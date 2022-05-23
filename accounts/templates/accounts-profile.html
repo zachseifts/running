@@ -28,7 +28,7 @@
           {% for activity in activities %}
           <tr>
             <td>{{ activity.start.timestamp|date:"l, F j, Y" }}</td>
-            <td><a href="/activity/{{ activity.id }}/">{{ activity.location }}</a></td>
+            <td><a href="{% url 'activity-detail' activity.id %}">{{ activity.location }}</a></td>
             <td>{{ activity.get_total_distance }} miles</td>
           </tr>
           {% endfor %}

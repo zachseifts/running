@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row mb-3">
+    <div class="col">
+      <h1 class="display-4">{{ activity.location }}<br />
+      <small class="text-muted">{{ activity.start.timestamp }} to {{ activity.end.timestamp|date:"g:i a " }}</small></h1>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-4">
+      <p>Total distance: {{ activity.get_total_distance|floatformat:2 }} miles.<br />
+      Max speed: {{ activity.get_max_speed }} mph.<br />
+      Max altitude: {{ activity.get_max_altitude|floatformat:2 }} feet.</p>
+    </div>
+    <div class="col">
+      <h3>Notes:</h3>
+      <p>{{ activity.notes }}</p>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <h3>GPS Points and Data</h3>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+            <th scope="col">Altitude</th>
+            <th scope="col">Speed</th>
+            <th scope="col">Cadence</th>
+            <th scope="col">Heart Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for point in activity.get_gps_tracks %}
+          <tr>
+            <td>{{ point.timestamp|date:"g:i:s a" }}</td>
+            <td>{{ point.latitude }}</td>
+            <td>{{ point.longitude }}</td>
+            <td>{{ point.altitude|floatformat:2 }}</td>
+            <td>{{ point.speed }}</td>
+            <td>{{ point.cadence }}</td>
+            <td>{{ point.heart_rate }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

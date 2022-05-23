@@ -95,3 +95,15 @@ class ActivityCreateView(View):
         return render(request, self.template_name, {'form': form})
 
 
+class ActivityDetailView(View):
+    template_name = 'activity-detail.html'
+
+    def get(self, request, **kwargs):
+        activity_id = kwargs.get('activity_id')
+        try:
+            activity = Activity.objects.get(pk=activity_id)
+        except Activity.DoesNotExist:
+            raise Http404("Activity does not exist")
+
+        return render(request, self.template_name, {'activity': activity})
+
