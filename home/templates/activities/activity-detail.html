@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_heading %}{{ activity.location }}{% endblock %}
+{% block page_heading %}{{ activity.get_total_distance|floatformat:2 }} miles @ {{ activity.location }}{% endblock %}
 {% block page_subheading %}{{ activity.start.timestamp }} to {{ activity.end.timestamp|date:"g:i a " }}{% endblock %}
 
 {% block content %}
@@ -8,13 +8,23 @@
 
   <div class="row mb-3">
     <div class="col-4">
-      <p>Total distance: {{ activity.get_total_distance|floatformat:2 }} miles.<br />
-      Max speed: {{ activity.get_max_speed }} mph.<br />
-      Max altitude: {{ activity.get_max_altitude|floatformat:2 }} feet.</p>
+      <div class="card">
+        <div class="card-header">Details</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Max speed: {{ activity.get_max_speed }} mph</li>
+          <li class="list-group-item">Average speed: {{ activity.get_avg_speed|floatformat:2 }} mph</li>
+          <li class="list-group-item">Max altitude: {{ activity.get_max_altitude|floatformat:2 }} feet</li>
+          <li class="list-group-item">Max heart rate: {{ activity.get_max_heart_rate }}</li>
+        </ul>
+      </div>
     </div>
     <div class="col">
-      <h3>Notes:</h3>
-      <p>{{ activity.notes }}</p>
+      <div class="card">
+        <div class="card-header">Notes</div>
+	<div class="card-body">
+          <p class="card-text">{{ activity.notes }}</p>
+	</div>
+      </div>
     </div>
   </div>
 

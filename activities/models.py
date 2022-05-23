@@ -53,9 +53,17 @@ class Activity(models.Model):
         speeds = [point.speed for point in self.get_gps_tracks()]
         return max(speeds)
 
+    def get_avg_speed(self):
+        speeds = [point.speed for point in self.get_gps_tracks()]
+        return (sum(speeds) / len(speeds))
+
     def get_max_altitude(self):
         altitudes = [point.altitude for point in self.get_gps_tracks()]
         return max(altitudes)
+
+    def get_max_heart_rate(self):
+        heart_rates = [point.heart_rate for point in self.get_gps_tracks()]
+        return max(heart_rates)
 
 
 class Lap(models.Model):
@@ -77,4 +85,5 @@ class Point(models.Model):
     speed = models.FloatField(null=True)
     cadence = models.IntegerField(default=0, null=True)
     heart_rate = models.IntegerField(default=0, null=True)
+
 
