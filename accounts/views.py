@@ -16,5 +16,5 @@ class AccountsProfileView(LoginRequiredMixin, View):
         activities = Activity.objects.filter(creator=request.user)
         
         context = {'locations': locations, 'activities': activities}
-        return render(request, 'accounts/accounts-profile.html', context)
+        return render(request, 'profile.html', context)
         

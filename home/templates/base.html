@@ -15,7 +15,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Training {% block title %}{% endblock %}</title>
+    <title>Training: {% block page_title %}{% endblock %}</title>
     {% bootstrap_css %}
 
     {% if 'javascript_in_head'|bootstrap_setting %}
@@ -59,7 +59,6 @@
       </div>
     </nav>
 
-    {% if user.is_authenticated %}
     <div class="wrapper pt-5 pb-5 mb-2" style="background-color: #f7f7f9;">
       <div class="container">
         <div class="row">
@@ -70,8 +69,8 @@
         </div>
       </div>
     </div>
-    {% endif %}
 
+    {% if bootstrap_messages %}
     <div class="container">
       <div class="row">
         <div class="col">
@@ -79,7 +78,7 @@
         </div>
       </div>
     </div>
-
+    {% endif %}
 
     {% block content %}
     {% endblock %}

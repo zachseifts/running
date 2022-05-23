@@ -16,10 +16,9 @@ class LocationCreateView(LoginRequiredMixin, View):
     '''
     login_url = '/accounts/login/'
     redirect_field_name = 'next'
-
     form_class = LocationCreateForm
     form_redirect = '/accounts/profile/'
-    template_name = 'activities/create-location.html'
+    template_name = 'create-location.html'
 
     def get(self, request):
         form = self.form_class()
@@ -46,7 +45,7 @@ class ActivityCreateView(LoginRequiredMixin, View):
 
     form_class = ActivityCreateForm
     form_redirect = '/accounts/profile/'
-    template_name = 'activities/create-activity.html'
+    template_name = 'create-activity.html'
 
     def get(self, request):
         form = self.form_class()
@@ -108,8 +107,7 @@ class ActivityDetailView(LoginRequiredMixin, View):
     '''
     login_url = '/accounts/login/'
     redirect_field_name = 'next'
-
-    template_name = 'activities/activity-detail.html'
+    template_name = 'activity.html'
 
     def get(self, request, **kwargs):
         activity_id = kwargs.get('activity_id')

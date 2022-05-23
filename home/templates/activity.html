@@ -2,6 +2,8 @@
 
 {% load bootstrap4 %}
 
+{% block page_title %}{{ activity.get_total_distance|floatformat:2 }} miles @ {{ activity.location }}{% endblock %}
+
 {% block page_heading %}{{ activity.get_total_distance|floatformat:2 }} miles @ {{ activity.location }}{% endblock %}
 {% block page_subheading %}{{ activity.start.timestamp }} to {{ activity.end.timestamp|date:"g:i a " }}{% endblock %}
 

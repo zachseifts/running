@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 
+{% block page_title %}Home{% endblock %}
+{% block page_heading %}Welcome to the training logger{% endblock %}
+{% block page_subheading %}I track activities!{% endblock %}
+
 {% block content %}
 
 {% if not user.is_authenticated %}
