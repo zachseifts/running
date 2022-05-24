@@ -59,6 +59,7 @@ class ActivityCreateView(LoginRequiredMixin, View):
                 creator = request.user,
                 location = form.cleaned_data['location'],
                 notes = form.cleaned_data['notes'],
+                sport = form.cleaned_data['sport'],
             )
             activity.save()
             lap = Lap(

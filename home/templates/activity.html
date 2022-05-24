@@ -15,6 +15,7 @@
       <div class="card">
         <div class="card-header">Details</div>
         <ul class="list-group list-group-flush">
+          <li class="list-group-item">Sport: {{ activity.get_sport_display }}</li>
           <li class="list-group-item">Max speed: {{ activity.get_max_speed }} mph</li>
           <li class="list-group-item">Average speed: {{ activity.get_avg_speed|floatformat:2 }} mph</li>
           <li class="list-group-item">Max altitude: {{ activity.get_max_altitude|floatformat:2 }} feet</li>
@@ -28,6 +29,7 @@
         <div class="card-header">Notes</div>
 	<div class="card-body">
           <p class="card-text">{{ activity.notes }}</p>
+          <p class="card-text">Created: {{ activity.created }} by {{ activity.creator.username }}</p>
 	</div>
       </div>
 

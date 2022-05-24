@@ -17,10 +17,17 @@ class Activity(models.Model):
     ''' An activity that takes place.
     '''
 
+    SPORTS = [
+        ('running', 'Running'),
+        ('biking', 'Biking'),
+        ('hiking', 'Hiking'),
+    ]
+
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     created = models.DateTimeField('date created', auto_now_add=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     notes = models.CharField(max_length = 255, null=True)
+    sport = models.CharField(max_length=64, choices=SPORTS, default='running')
 
     def start(self):
         ''' Returns the start of this activity.
