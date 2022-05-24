@@ -11,10 +11,13 @@ class AccountsProfileView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
 
     def get(self, request):
-
         locations = Location.objects.filter(creator=request.user)
         activities = Activity.objects.filter(creator=request.user)
         
-        context = {'locations': locations, 'activities': activities}
+        context = {
+            'locations': locations,
+            'activities': activities
+        }
+
         return render(request, 'profile.html', context)
         
