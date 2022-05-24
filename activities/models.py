@@ -19,7 +19,6 @@ class Activity(models.Model):
 
     SPORTS = [
         ('running', 'Running'),
-        ('biking', 'Biking'),
         ('hiking', 'Hiking'),
     ]
 

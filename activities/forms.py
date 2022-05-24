@@ -10,7 +10,6 @@ class LocationCreateForm(forms.ModelForm):
 class ActivityCreateForm(forms.Form):
     SPORTS = [
         ('running', 'Running'),
-        ('biking', 'Biking'),
         ('hiking', 'Hiking'),
     ]
     location = forms.ModelChoiceField(queryset = Location.objects.all())
