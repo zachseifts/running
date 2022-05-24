@@ -118,10 +118,33 @@ class ActivityDetailView(LoginRequiredMixin, View):
         activity_id = kwargs.get('activity_id')
         try:
             activity = Activity.objects.get(pk=activity_id)
+
+            times = list()
+            cadence = list()
+            speed = list()
+            heart_rate = list()
+            altitude = list()
+
+            for lap in activity.lap_set.all():
+                for point in lap.point_set.all():
+                    times.append(point.timestamp.strftime('%H:%M:%S'))
+                    cadence.append(point.cadence)
+                    speed.append(point.speed)
+                    heart_rate.append(point.heart_rate)
+                    altitude.append(point.altitude)
+
         except Activity.DoesNotExist:
             raise Http404("Activity does not exist")
 
-        return render(request, self.template_name, {'activity': activity})
+        context = {
+            'activity': activity,
+            'times': times,
+            'cadence': cadence,
+            'speed': speed,
+            'heart_rate': heart_rate,
+            'altitude': altitude,
+        }
+        return render(request, self.template_name, context)
 
 
 class ShoeCreateView(LoginRequiredMixin, View):
