@@ -2,8 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import redirect
 
-from activities.models import Location, Activity
-
 class AccountsProfileView(LoginRequiredMixin, View):
     ''' Redirects the user to the homepage after logging in.
     '''
