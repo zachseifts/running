@@ -54,13 +54,23 @@
 
     </div>
     <div class="col-3">
-      <div class="card">
+      <div class="card mb-2">
         <div class="card-header">Locations</div>
         <ul class="list-group list-group-flush">
         {% for location in locations %}
         <li class="list-group-item">{{ location.name }} <span class="badge badge-dark">{{ location.activity_set.count }}</span></li>
         {% endfor %}
         </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">Active Shoes</div>
+        <ul class="list-group list-group-flush">
+        {% for shoe in shoes %}
+        <li class="list-group-item">{{ shoe.manufacturer }} {{ shoe.brand }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+
     </div>
   </div>
 </div>

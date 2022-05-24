@@ -13,6 +13,17 @@ class Location(models.Model):
         return self.name
 
 
+class Shoe(models.Model):
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    created = models.DateTimeField('date created', auto_now_add=True, blank=True)
+    manufacturer = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '{}: {}'.format(self.manufacturer, self.brand)
+
+
 class Activity(models.Model):
     ''' An activity that takes place.
     '''
@@ -27,6 +38,7 @@ class Activity(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     notes = models.CharField(max_length = 255, null=True)
     sport = models.CharField(max_length=64, choices=SPORTS, default='running')
+    shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE, null=True)
 
     def start(self):
         ''' Returns the start of this activity.
@@ -83,7 +95,7 @@ class Lap(models.Model):
 class Point(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     created = models.DateTimeField('date created', auto_now_add=True, blank=True)
-    lap = models.ForeignKey(Lap, on_delete=models.CASCADE, null = True)
+    lap = models.ForeignKey(Lap, on_delete=models.CASCADE, null=True)
     timestamp = models.DateTimeField(null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True)

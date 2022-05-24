@@ -6,8 +6,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
-from .forms import ActivityCreateForm, LocationCreateForm
-from .models import Activity, Lap, Point, Location
+from .forms import ActivityCreateForm, LocationCreateForm, ShoeCreateForm
+from .models import Activity, Lap, Point, Location, Shoe
 
 import fitdecode
 
@@ -17,7 +17,7 @@ class LocationCreateView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
     redirect_field_name = 'next'
     form_class = LocationCreateForm
-    form_redirect = '/accounts/profile/'
+    form_redirect = '/accounts/profile/' # change to reverse_lazy('home')
     template_name = 'create-location.html'
 
     def get(self, request):
@@ -37,6 +37,7 @@ class LocationCreateView(LoginRequiredMixin, View):
 
         return render(request, self.template_name, {'form': form})
 
+
 class ActivityCreateView(LoginRequiredMixin, View):
     ''' A view that creates a new activity.
     '''
@@ -49,6 +50,8 @@ class ActivityCreateView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = self.form_class()
+        form.fields['location'].queryset = Location.objects.filter(creator=request.user)
+        form.fields['shoe'].queryset = Shoe.objects.filter(creator=request.user).filter(is_active=True)
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
@@ -60,6 +63,7 @@ class ActivityCreateView(LoginRequiredMixin, View):
                 location = form.cleaned_data['location'],
                 notes = form.cleaned_data['notes'],
                 sport = form.cleaned_data['sport'],
+                shoe = form.cleaned_data['shoe'],
             )
             activity.save()
             lap = Lap(
@@ -118,4 +122,33 @@ class ActivityDetailView(LoginRequiredMixin, View):
             raise Http404("Activity does not exist")
 
         return render(request, self.template_name, {'activity': activity})
+
+
+class ShoeCreateView(LoginRequiredMixin, View):
+    ''' A view for creating a new location.
+    '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+    form_class = ShoeCreateForm
+    form_redirect = '/'
+    template_name = 'create-shoe.html'
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST, request=request)
+        if form.is_valid():
+            manufacturer = form.cleaned_data['manufacturer']
+            brand = form.cleaned_data['brand']
+            shoe = Shoe(
+                brand=brand,
+                manufacturer=manufacturer,
+                creator=request.user)
+            shoe.save()
+            messages.add_message(request, messages.INFO, 'Added new shoe: {} {}'.format(manufacturer, brand))
+            return HttpResponseRedirect(self.form_redirect)
+
+        return render(request, self.template_name, {'form': form})
 
