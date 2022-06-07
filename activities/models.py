@@ -24,14 +24,21 @@ class Shoe(models.Model):
         return '{}: {}'.format(self.manufacturer, self.brand)
 
     def distance(self):
-        return sum([activity.get_total_distance() for activity in self.activity_set.all()])
+        distance = [activity.get_total_distance() for activity in self.activity_set.all()]
+
+        return sum(distance)
 
     def status(self):
-        if self.distance() > 200:
-            return 'danger'
-        if self.distance() > 100:
-            return 'warning'
-        return 'success'
+        status = 'success'
+        distance = self.distance()
+
+        if distance > 200:
+            status = 'danger'
+
+        if distance > 100:
+            status = 'warning'
+
+        return status
 
 
 class Activity(models.Model):
