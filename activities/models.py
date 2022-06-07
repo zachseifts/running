@@ -25,7 +25,6 @@ class Shoe(models.Model):
 
     def distance(self):
         distance = [activity.get_total_distance() for activity in self.activity_set.all()]
-
         return sum(distance)
 
     def status(self):
