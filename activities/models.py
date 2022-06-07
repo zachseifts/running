@@ -23,6 +23,16 @@ class Shoe(models.Model):
     def __str__(self):
         return '{}: {}'.format(self.manufacturer, self.brand)
 
+    def distance(self):
+        return sum([activity.get_total_distance() for activity in self.activity_set.all()])
+
+    def status(self):
+        if self.distance() > 200:
+            return 'danger'
+        if self.distance() > 100:
+            return 'warning'
+        return 'success'
+
 
 class Activity(models.Model):
     ''' An activity that takes place.
@@ -49,6 +59,11 @@ class Activity(models.Model):
         ''' Returns the end of this activity.
         '''
         return self.get_gps_tracks()[-1]
+
+    def duration(self):
+        ''' Returns the duration of the activity.
+        '''
+        return self.end().timestamp - self.start().timestamp
 
     def get_gps_tracks(self):
         ''' Returns a list of points for this activity.

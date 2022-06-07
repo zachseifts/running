@@ -35,6 +35,7 @@
             <th scope="col">Date</th>
             <th scope="col">Location</th>
             <th scope="col">Distance</th>
+            <th scope="col">Duration</th>
             <th scope="col">Sport</th>
             <th scope="col"></th>
           </tr>
@@ -45,6 +46,7 @@
             <td>{{ activity.start.timestamp|date:"l, F j, Y" }}</td>
             <td>{{ activity.location }}</td>
             <td>{{ activity.get_total_distance|floatformat:2 }} miles</td>
+            <td>{{ activity.duration }}</td>
             <td>{{ activity.get_sport_display }}</td>
             <td><a href="{% url 'activity-detail' activity.id %}">view</a></td>
           </tr>
@@ -66,7 +68,7 @@
         <div class="card-header">Active Shoes</div>
         <ul class="list-group list-group-flush">
         {% for shoe in shoes %}
-        <li class="list-group-item">{{ shoe.manufacturer }} {{ shoe.brand }}</li>
+        <li class="list-group-item">{{ shoe.manufacturer }} {{ shoe.brand }} <span class="badge badge-{{ shoe.status }}">{{ shoe.distance|floatformat:2 }}</span></li>
         {% endfor %}
         </ul>
       </div>
