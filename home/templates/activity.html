@@ -43,19 +43,33 @@
         <div class="card-header">Graphs</div>
         <div class="card-body">
           <canvas id="test-chart"></canvas>
+	  <canvas id="speed-chart"></canvas>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script>
+	    const speed_data = {
+                labels: {{ times|safe }},
+                datasets: [{
+                    label: 'Speed',
+                    backgroundColor: '#209442',
+                    data: {{ speed|safe }},
+                }]
+	    };
+            const speed_config = {
+                type: 'line',
+                data: speed_data,
+                options: {}
+            };
+            const speedChart = new Chart(
+                document.getElementById('speed-chart'),
+                speed_config
+            );
+
             const data = {
                 labels: {{ times|safe }},
                 datasets: [{
                     label: 'Cadence',
                     backgroundColor: '#696969',
                     data: {{ cadence|safe }},
-                },
-                {
-                    label: 'Speed',
-                    backgroundColor: '#209442',
-                    data: {{ speed|safe }},
                 },
                 {
                     label: 'Heart Rate',
@@ -69,6 +83,7 @@
                 data: data,
                 options: {}
             };
+
             const testChart = new Chart(
                 document.getElementById('test-chart'),
                 config
