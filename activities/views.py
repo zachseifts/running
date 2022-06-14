@@ -10,6 +10,7 @@ from .forms import ActivityCreateForm, LocationCreateForm, ShoeCreateForm
 from .models import Activity, Lap, Point, Location, Shoe
 
 import fitdecode
+import folium
 
 class LocationCreateView(LoginRequiredMixin, View):
     ''' A view for creating a new location.
@@ -81,6 +82,12 @@ class ActivityCreateView(LoginRequiredMixin, View):
                                 latitude = frame.get_value('position_lat') / ((2**32) / 360)
                                 longitude = frame.get_value('position_long') / ((2**32) / 360)
                                 altitude = frame.get_value('altitude') * 3.281
+
+                                try:
+                                    heart_rate = frame.get_value('heart_rate')
+                                except KeyError:
+                                    heart_rate = 0
+
                                 point = Point(
                                     creator = request.user,
                                     lap=lap,
@@ -90,7 +97,7 @@ class ActivityCreateView(LoginRequiredMixin, View):
                                     altitude=altitude,
                                     speed=frame.get_value('speed'),
                                     cadence=frame.get_value('cadence'),
-                                    heart_rate=frame.get_value('heart_rate'),
+                                    heart_rate = heart_rate,
                                 )
                                 point.save()
                         if frame.name == 'lap':

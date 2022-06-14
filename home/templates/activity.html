@@ -2,6 +2,9 @@
 
 {% load bootstrap4 %}
 
+{% block extra_head %}
+{% endblock %}
+
 {% block page_title %}{{ activity.get_total_distance|floatformat:2 }} miles @ {{ activity.location }}{% endblock %}
 
 {% block page_heading %}{{ activity.get_total_distance|floatformat:2 }} miles @ {{ activity.location }}{% endblock %}
