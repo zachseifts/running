@@ -26,6 +26,44 @@
 
 {% if user.is_authenticated %}
 <div class="container">
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">This week</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{ weekly.count }} runs</li>
+          <li class="list-group-item">{{ weekly_mileage|floatformat:2 }} miles</li>
+          <li class="list-group-item">{{ weekly_time }} time spent</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-header">This month</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{ monthly.count }}</li>
+          <li class="list-group-item">{{ monthly_mileage|floatformat:2 }} miles</li>
+          <li class="list-group-item">{{ monthly_time }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-header">This year</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{ yearly.count }} runs</li>
+          <li class="list-group-item">{{ yearly_mileage|floatformat:2 }} miles</li>
+          <li class="list-group-item">{{ yearly_time }}</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
   <div class="row">
     <div class="col">
       <h2>Activities</h2>
@@ -36,7 +74,7 @@
             <th scope="col">Location</th>
             <th scope="col">Distance</th>
             <th scope="col">Duration</th>
-            <th scope="col">Sport</th>
+            <th scope="col">Minutes per mile</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -47,7 +85,7 @@
             <td>{{ activity.location }}</td>
             <td>{{ activity.get_total_distance|floatformat:2 }} miles</td>
             <td>{{ activity.duration }}</td>
-            <td>{{ activity.get_sport_display }}</td>
+            <td>{{ activity.get_minutes_per_mile }}</td>
             <td><a href="{% url 'activity-detail' activity.id %}">view</a></td>
           </tr>
           {% endfor %}

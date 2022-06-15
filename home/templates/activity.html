@@ -19,7 +19,7 @@
         <div class="card-header">Details</div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Duration: {{ activity.duration }}</li>
-          <li class="list-group-item">Sport: {{ activity.get_sport_display }}</li>
+          <li class="list-group-item">Minutes per mile: {{ activity.get_minutes_per_mile }}</li>
           <li class="list-group-item">Shoe: {{ activity.shoe }}</li>
           <li class="list-group-item">Max speed: {{ activity.get_max_speed }} mph</li>
           <li class="list-group-item">Average speed: {{ activity.get_avg_speed|floatformat:2 }} mph</li>

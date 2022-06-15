@@ -105,6 +105,9 @@ class Activity(models.Model):
     def get_max_heart_rate(self):
         heart_rates = [point.heart_rate for point in self.get_gps_tracks()]
         return max(heart_rates)
+    
+    def get_minutes_per_mile(self):
+        return self.duration() / self.get_total_distance()
 
 
 class Lap(models.Model):
