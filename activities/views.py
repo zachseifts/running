@@ -10,7 +10,6 @@ from .forms import ActivityCreateForm, LocationCreateForm, ShoeCreateForm
 from .models import Activity, Lap, Point, Location, Shoe
 
 import fitdecode
-import folium
 
 class LocationCreateView(LoginRequiredMixin, View):
     ''' A view for creating a new location.

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+{% load static %}
 {% load bootstrap4 %}
 
 {% load bootstrap4 %}
@@ -17,6 +18,7 @@
 
     <title>Running: {% block page_title %}{% endblock %}</title>
     {% bootstrap_css %}
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
 
     {% if 'javascript_in_head'|bootstrap_setting %}
       {% bootstrap_jquery %}
@@ -65,7 +67,7 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <h1 class="display-3">{% block page_heading %}{% endblock %}</h1>
+            <h1 class="display-3"><i class="fa-solid fa-person-running"></i> {% block page_heading %}{% endblock %}</h1>
             <p class="text-muted">{% block page_subheading %}{% endblock %}</p>
           </div>
         </div>
