@@ -45,10 +45,10 @@
       <div class="card mb-2">
         <div class="card-header">Graphs</div>
         <div class="card-body">
-	  <h3>Speed</h3>
+	  <h3>Speed <small>(mph)</small></h3>
 	  <canvas id="speed-chart"></canvas>
 
-	  <h3>Altitude</h3>
+	  <h3>Altitude <small>(ft)</small></h3>
           <canvas id="altitude-chart"></canvas>
 
 	  <h3>Vitals</h3>
@@ -64,7 +64,7 @@
                   labels: {{ times|safe }},
                   datasets: [{
                     label: 'Speed',
-                    backgroundColor: '#209442',
+                    backgroundColor: '#558b2f',
                     data: {{ speed|safe }},
                 }]
               },
@@ -85,8 +85,8 @@
                 data: {
                   labels: {{ times|safe }},
                   datasets: [{
-                    label: 'Speed',
-                    backgroundColor: '#209442',
+                    label: 'Altitude',
+                    backgroundColor: '#283693',
                     data: {{ altitude|safe }},
                 }]
               },
@@ -108,12 +108,12 @@
                   labels: {{ times|safe }},
                   datasets: [{
                     label: 'Cadence',
-                    backgroundColor: '#209442',
+                    backgroundColor: '#f57f17',
                     data: {{ cadence|safe }},
                 },
 	        {
                     label: 'Heart rate',
-                    backgroundColor: '#209442',
+                    backgroundColor: '#b71c1c',
                     data: {{ heart_rate|safe }},
                 }]
               },
