@@ -21,3 +21,11 @@ class ActivityTestCase(TestCase):
         '''
         activity = Activity.objects.first()
         self.assertEqual(activity.creator, self.user)
+
+    def test_activity_get_points(self):
+        ''' Makes sure the get_points() function returns a list of tracks.
+        '''
+        activity = Activity.objects.first()
+        points = activity.get_points()
+        self.assertTrue(len(points) > 0)
+

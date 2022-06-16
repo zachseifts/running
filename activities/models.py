@@ -61,20 +61,20 @@ class Activity(models.Model):
     def start(self):
         ''' Returns the start of this activity.
         '''
-        return self.get_gps_tracks()[0]
+        return self.get_points()[0]
 
     def end(self):
         ''' Returns the end of this activity.
         '''
-        return self.get_gps_tracks()[-1]
+        return self.get_points()[-1]
 
     def duration(self):
         ''' Returns the duration of the activity.
         '''
         return self.end().timestamp - self.start().timestamp
 
-    def get_gps_tracks(self):
-        ''' Returns a list of points for this activity.
+    def get_points(self):
+        ''' Returns a list of all the points related to this activity.
         '''
         points = list()
 
@@ -91,19 +91,19 @@ class Activity(models.Model):
         return sum(distances) / 1609
 
     def get_max_speed(self):
-        speeds = [point.speed for point in self.get_gps_tracks()]
+        speeds = [point.speed for point in self.get_points()]
         return max(speeds)
 
     def get_avg_speed(self):
-        speeds = [point.speed for point in self.get_gps_tracks()]
+        speeds = [point.speed for point in self.get_points()]
         return (sum(speeds) / len(speeds))
 
     def get_max_altitude(self):
-        altitudes = [point.altitude for point in self.get_gps_tracks()]
+        altitudes = [point.altitude for point in self.get_points()]
         return max(altitudes)
 
     def get_max_heart_rate(self):
-        heart_rates = [point.heart_rate for point in self.get_gps_tracks()]
+        heart_rates = [point.heart_rate for point in self.get_points()]
         return max(heart_rates)
     
     def get_minutes_per_mile(self):
