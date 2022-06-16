@@ -45,51 +45,86 @@
       <div class="card mb-2">
         <div class="card-header">Graphs</div>
         <div class="card-body">
-          <canvas id="test-chart"></canvas>
+	  <h3>Speed</h3>
 	  <canvas id="speed-chart"></canvas>
+
+	  <h3>Altitude</h3>
+          <canvas id="altitude-chart"></canvas>
+
+	  <h3>Vitals</h3>
+          <canvas id="vitals-chart"></canvas>
+
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script>
-	    const speed_data = {
-                labels: {{ times|safe }},
-                datasets: [{
+            const speedChart = new Chart(
+              document.getElementById('speed-chart'),
+              {
+                type: 'line',
+                data: {
+                  labels: {{ times|safe }},
+                  datasets: [{
                     label: 'Speed',
                     backgroundColor: '#209442',
                     data: {{ speed|safe }},
                 }]
-	    };
-            const speed_config = {
-                type: 'line',
-                data: speed_data,
-                options: {}
-            };
-            const speedChart = new Chart(
-                document.getElementById('speed-chart'),
-                speed_config
+              },
+                options: {
+                  plugins: {
+                    legend: {
+                      display: false,
+                    }
+                  }
+                }
+              }
             );
 
-            const data = {
-                labels: {{ times|safe }},
-                datasets: [{
+            const altitudeChart = new Chart(
+              document.getElementById('altitude-chart'),
+              {
+                type: 'line',
+                data: {
+                  labels: {{ times|safe }},
+                  datasets: [{
+                    label: 'Speed',
+                    backgroundColor: '#209442',
+                    data: {{ altitude|safe }},
+                }]
+              },
+                options: {
+                  plugins: {
+                    legend: {
+                      display: false,
+                    }
+                  }
+                }
+              }
+            );
+
+            const vitalsChart = new Chart(
+              document.getElementById('vitals-chart'),
+              {
+                type: 'line',
+                data: {
+                  labels: {{ times|safe }},
+                  datasets: [{
                     label: 'Cadence',
-                    backgroundColor: '#696969',
+                    backgroundColor: '#209442',
                     data: {{ cadence|safe }},
                 },
-                {
-                    label: 'Heart Rate',
-                    backgroundColor: '#C70039',
+	        {
+                    label: 'Heart rate',
+                    backgroundColor: '#209442',
                     data: {{ heart_rate|safe }},
                 }]
-            };
-
-            const config = {
-                type: 'line',
-                data: data,
-                options: {}
-            };
-
-            const testChart = new Chart(
-                document.getElementById('test-chart'),
-                config
+              },
+                options: {
+                  plugins: {
+                    legend: {
+                      display: true,
+                    }
+                  }
+                }
+              }
             );
           </script>
         </div>
