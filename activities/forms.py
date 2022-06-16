@@ -4,7 +4,7 @@ from .models import Location, Shoe, Activity
 class LocationCreateForm(forms.ModelForm):
     class Meta:
         model = Location
-        fields = ['name',]
+        fields = ['name', 'latitude', 'longitude']
 
 
 class ActivityCreateForm(forms.ModelForm):

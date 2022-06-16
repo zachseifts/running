@@ -30,7 +30,9 @@ class LocationCreateView(LoginRequiredMixin, View):
             name = form.cleaned_data['name']
             location = Location(
                 name=name,
-                creator=request.user)
+                creator=request.user,
+                latitude=form.cleaned_data['latitude'],
+                longitude=form.cleaned_data['longitude'])
             location.save()
             messages.add_message(request, messages.INFO, 'Added location: {}'.format(name))
             return HttpResponseRedirect(self.form_redirect)
