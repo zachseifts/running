@@ -132,6 +132,8 @@ class ActivityDetailView(LoginRequiredMixin, View):
             speed = list()
             heart_rate = list()
             altitude = list()
+            year = int()
+            week = int()
 
             for lap in activity.lap_set.all():
                 for point in lap.point_set.all():
@@ -140,6 +142,10 @@ class ActivityDetailView(LoginRequiredMixin, View):
                     speed.append(point.speed)
                     heart_rate.append(point.heart_rate)
                     altitude.append(point.altitude)
+
+                    if (not year) and (not week):
+                        year = point.timestamp.isocalendar().year
+                        week = point.timestamp.isocalendar().week
 
         except Activity.DoesNotExist:
             raise Http404("Activity does not exist")
@@ -151,6 +157,8 @@ class ActivityDetailView(LoginRequiredMixin, View):
             'speed': speed,
             'heart_rate': heart_rate,
             'altitude': altitude,
+            'year': year,
+            'week': week,
         }
         return render(request, self.template_name, context)
 
@@ -169,7 +177,7 @@ class ShoeCreateView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = self.form_class(request.POST, request=request)
+        form = self.form_class(request.POST)
         if form.is_valid():
             manufacturer = form.cleaned_data['manufacturer']
             brand = form.cleaned_data['brand']
@@ -182,4 +190,79 @@ class ShoeCreateView(LoginRequiredMixin, View):
             return HttpResponseRedirect(self.form_redirect)
 
         return render(request, self.template_name, {'form': form})
+
+
+class ActivityWeeklyView(LoginRequiredMixin, View):
+    ''' A view for viewing weekly activity data.
+    '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+    template_name = 'weekly.html'
+
+    def get(self, request, **kwargs):
+        year = kwargs.get('year')
+        week = kwargs.get('week')
+
+        activities = list()
+        if request.user.is_authenticated:
+            shoes = list()
+
+            for a in Activity.objects.filter(creator=request.user):
+                first_point = a.lap_set.first().point_set.first()
+                if (first_point.timestamp.isocalendar().year == year and 
+                    first_point.timestamp.isocalendar().week == week):
+                    activities.append(a)
+
+            for activity in activities:
+                if a.shoe not in shoes:
+                    shoes.append(a.shoe)
+
+            mileage = sum([activity.get_total_distance() for activity in activities])
+            duration = sum([activity.duration() for activity in activities], timedelta())
+
+        context = {
+            'year': year,
+            'week': week,
+            'activities': activities,
+            'mileage': mileage,
+            'duration': duration,
+            'shoes': shoes,
+        }
+        return render(request, self.template_name, context)
+
+
+class ActivityYearlyView(LoginRequiredMixin, View):
+    ''' A view for viewing weekly activity data.
+    '''
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+    template_name = 'yearly.html'
+
+    def get(self, request, **kwargs):
+        year = kwargs.get('year')
+
+        activities = list()
+        if request.user.is_authenticated:
+            shoes = list()
+
+            for a in Activity.objects.filter(creator=request.user):
+                first_point = a.lap_set.first().point_set.first()
+                if first_point.timestamp.isocalendar().year == year:
+                    activities.append(a)
+
+            for activity in activities:
+                if activity.shoe not in shoes:
+                    shoes.append(activity.shoe)
+
+            mileage = sum([activity.get_total_distance() for activity in activities])
+            duration = sum([activity.duration() for activity in activities], timedelta())
+
+        context = {
+            'year': year,
+            'activities': activities,
+            'mileage': mileage,
+            'duration': duration,
+            'shoes': shoes,
+        }
+        return render(request, self.template_name, context)
 

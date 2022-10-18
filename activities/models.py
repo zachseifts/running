@@ -33,10 +33,10 @@ class Shoe(models.Model):
         status = 'success'
         distance = self.distance()
 
-        if distance > 200:
+        if distance > 300:
             status = 'danger'
 
-        if distance > 100:
+        if distance > 200:
             status = 'warning'
 
         return status

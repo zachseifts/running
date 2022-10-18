@@ -25,6 +25,7 @@
           <li class="list-group-item">Average speed: {{ activity.get_avg_speed|floatformat:2 }} mph</li>
           <li class="list-group-item">Max altitude: {{ activity.get_max_altitude|floatformat:2 }} feet</li>
           <li class="list-group-item">Max heart rate: {{ activity.get_max_heart_rate }}</li>
+          <li class="list-group-item"><a href="{% url 'activity-weekly' year week %}" type="button" class="btn btn-info">View week</a></li>
         </ul>
       </div>
     </div>
