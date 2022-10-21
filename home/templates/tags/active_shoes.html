@@ -1,0 +1,3 @@
+{% for shoe in shoes %}
+<li class="list-group-item">Shoe: {{ shoe.brand }} <span class="badge badge-{{ shoe.status }}">{{ shoe.distance|floatformat:2 }} miles</span></li>
+{% endfor %}

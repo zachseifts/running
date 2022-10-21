@@ -18,7 +18,7 @@ class LocationCreateView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
     form_class = LocationCreateForm
     form_redirect = '/accounts/profile/' # change to reverse_lazy('home')
-    template_name = 'create-location.html'
+    template_name = 'create/location.html'
 
     def get(self, request):
         form = self.form_class()
@@ -48,7 +48,7 @@ class ActivityCreateView(LoginRequiredMixin, View):
 
     form_class = ActivityCreateForm
     form_redirect = '/accounts/profile/'
-    template_name = 'create-activity.html'
+    template_name = 'create/activity.html'
 
     def get(self, request):
         form = self.form_class()
@@ -170,7 +170,7 @@ class ShoeCreateView(LoginRequiredMixin, View):
     redirect_field_name = 'next'
     form_class = ShoeCreateForm
     form_redirect = '/'
-    template_name = 'create-shoe.html'
+    template_name = 'create/shoe.html'
 
     def get(self, request):
         form = self.form_class()
@@ -207,7 +207,7 @@ class ActivityWeeklyView(LoginRequiredMixin, View):
         if request.user.is_authenticated:
             shoes = list()
 
-            for a in Activity.objects.filter(creator=request.user):
+            for a in Activity.objects.filter(creator=request.user).order_by('-created'):
                 first_point = a.lap_set.first().point_set.first()
                 if (first_point.timestamp.isocalendar().year == year and 
                     first_point.timestamp.isocalendar().week == week):
@@ -245,7 +245,7 @@ class ActivityYearlyView(LoginRequiredMixin, View):
         if request.user.is_authenticated:
             shoes = list()
 
-            for a in Activity.objects.filter(creator=request.user):
+            for a in Activity.objects.filter(creator=request.user).order_by('-created'):
                 first_point = a.lap_set.first().point_set.first()
                 if first_point.timestamp.isocalendar().year == year:
                     activities.append(a)

@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load bootstrap4 %}
+{% load running %}
 
 {% load bootstrap4 %}
 {% if 'use_i18n'|bootstrap_setting %}
@@ -16,7 +17,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Running: {% block page_title %}{% endblock %}</title>
+    <title>{% now "F Y" %}: {% block page_title %}{% endblock %}</title>
     {% bootstrap_css %}
     <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
 
@@ -31,58 +32,7 @@
 
   </head>
   <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Running</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-     
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            {% if not user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'accounts-login' %}">Log in</a>
-            </li>
-            {% else %}
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'create-location' %}">Create a location</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'create-activity' %}">Create an activity</a>
-            </li>
-            {% endif %}
-          </ul>
-          <span class="navbar-text my-2 my-lg-0">
-            {% if user.is_authenticated %}
-               Hello <a href="{% url 'home' %}">{{ user.username }}</a>! [<a href="{% url 'accounts-logout' %}">logout</a>]
-            {% endif %}
-          </span>
-        </div>
-      </div>
-    </nav>
-
-    <div class="wrapper pt-5 pb-5 mb-2" style="background-color: #f7f7f9;">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <h1 class="display-3"><i class="fa-solid fa-person-running"></i> {% block page_heading %}{% endblock %}</h1>
-            <p class="text-muted">{% block page_subheading %}{% endblock %}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {% if bootstrap_messages %}
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          {% bootstrap_messages %}
-        </div>
-      </div>
-    </div>
-    {% endif %}
+    {% base_navbar user %}
 
     {% block content %}
     {% endblock %}

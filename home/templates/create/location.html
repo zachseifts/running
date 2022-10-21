@@ -1,14 +1,16 @@
 {% extends "base.html" %}
-
 {% load bootstrap4 %}
 
 {% block page_title %}Create a new location{% endblock %}
 
-{% block page_heading %}Create a new location{% endblock %}
-{% block page_subheading %}Found a new spot to run? Create a new location.{% endblock %}
-
 {% block content %}
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">New location</h1>
+      <p>Ran somewhere new? Create a new location here.</p>
+    </div>
+  </div>
   <div class="row">
     <div class="col-7">
       <form method="POST" enctype="multipart/form-data">
@@ -23,5 +25,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

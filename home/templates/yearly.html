@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
-
-{% block extra_head %}
-{% endblock %}
+{% load running %}
 
 {% block page_title %}{{ year|safe }} details{% endblock %}
 
-{% block page_heading %}{{ year|safe }} details{% endblock %}
-
 {% block content %}
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">All runs in {{ year|safe }}</h1>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-4">
 
@@ -31,33 +33,8 @@
       </div>
     </div>
     <div class="col">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Location</th>
-            <th scope="col">Distance</th>
-            <th scope="col">Duration</th>
-            <th scope="col">Minutes per mile</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for activity in activities %}
-          <tr>
-            <td>{{ activity.start.timestamp|date:"l, F j, Y" }}</td>
-            <td>{{ activity.location }}</td>
-            <td>{{ activity.get_total_distance|floatformat:2 }} miles</td>
-            <td>{{ activity.duration }}</td>
-            <td>{{ activity.get_minutes_per_mile }}</td>
-            <td><a href="{% url 'activity-detail' activity.id %}">view</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% activity_table activities %}
     </div>
   </div>
 </div>
-
 {% endblock %}
-

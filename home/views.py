@@ -14,14 +14,9 @@ class HomeView(View):
 
         if request.user.is_authenticated:
             context['locations'] = Location.objects.filter(creator=request.user)
-            context['shoes'] = Shoe.objects.filter(creator=request.user).filter(is_active=True)
 
             year, week, _ = now().isocalendar()
             month = now().month
-            context['week'] = week
-
-            last_week = now() - timedelta(weeks = 1)
-            context['last_week'] = last_week.isocalendar().week
 
             month_obj = datetime.strptime(str(month), '%m')
             context['month'] = month_obj.strftime('%B')

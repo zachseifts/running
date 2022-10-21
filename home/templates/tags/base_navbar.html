@@ -1,0 +1,56 @@
+{% load bootstrap4 %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-solid fa-person-running"></i> {% now "F Y" %}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+ 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        {% if not user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts-login' %}">Log in</a>
+        </li>
+        {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+            New
+          </a>  
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'new-activity' %}"><i class="fa-solid fa-person-running"></i> Run</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'new-location' %}"><i class="fa-solid fa-map-pin"></i> Location</a>
+            <a class="dropdown-item" href="{% url 'new-shoe' %}"><i class="fa-solid fa-shoe-prints"></i> Shoe</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ this_week }}">This week</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ last_week }}">Last week</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ this_year }}">This year</a>
+        </li>
+        {% endif %}
+      </ul>
+      <span class="navbar-text my-2 my-lg-0">
+        {% if user.is_authenticated %}
+           Hello <a href="{% url 'home' %}">{{ user.username }}</a>! [<a href="{% url 'accounts-logout' %}">logout</a>]
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</nav>
+
+{% if bootstrap_messages %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      {% bootstrap_messages %}
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -2,12 +2,14 @@
 {% load bootstrap4 %}
 
 {% block page_title %}Log out{% endblock %}
-{% block page_heading %}You have been logged out{% endblock %}
-{% block page_subheading %}Goodbye.{% endblock %}
 
 {% block content %}
-
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">You have been logged out.</h1>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
       <p>You have been logged out.</p>
@@ -15,5 +17,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

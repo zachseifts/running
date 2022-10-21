@@ -1,14 +1,16 @@
 {% extends "base.html" %}
-
 {% load bootstrap4 %}
 
 {% block page_title %}Create a new shoe{% endblock %}
 
-{% block page_heading %}Create a new shoe{% endblock %}
-{% block page_subheading %}Add a new shoe to your collection.{% endblock %}
-
 {% block content %}
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">Add a new shoe</h1>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-7">
       <form method="POST" enctype="multipart/form-data">
@@ -23,5 +25,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

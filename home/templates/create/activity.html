@@ -1,14 +1,17 @@
 {% extends "base.html" %}
-
 {% load bootstrap4 %}
 
 {% block page_title %}Create a new activity{% endblock %}
 
-{% block page_heading %}Create a new activiity{% endblock %}
-{% block page_subheading %}Went for a run? It's time to upload a new activity.{% endblock %}
-
 {% block content %}
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">New activity</h1>
+      <p>Use this form to create a new activity. Upload the .FIT file from your device to process your run.</p>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-7">
       <form method="POST" enctype="multipart/form-data">
@@ -23,5 +26,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

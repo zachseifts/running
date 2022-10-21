@@ -1,22 +1,9 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
+{% load running %}
 
 {% block page_title %}
   {% if not user.is_authenticated %}Home{% else %}{{ user.username }}'s runs{% endif %}
-{% endblock %}
-
-{% block page_heading %}
-  {% if not user.is_authenticated %}
-    Welcome to the training logger
-  {% else %}
-    {{ month }}, {{ year }}
-  {% endif %}
-{% endblock %}
-
-{% block page_subheading %}
-  {% if not user.is_authenticated %}
-    I track runs!
-  {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -31,13 +18,6 @@
           <li class="list-group-item">{{ weekly.count }} run{% if weekly.count != 1 %}s{% endif %}</li>
           <li class="list-group-item">{{ weekly_mileage|floatformat:2 }} miles</li>
           <li class="list-group-item">{{ weekly_time }} time spent</li>
-          <li class="list-group-item">
-            <div class="btn-group" role="group" aria-label="View weekly data">
-              <a href="{% url 'activity-weekly' year week %}" type="button" class="btn btn-info">This week</a>
-              <a href="{% url 'activity-weekly' year last_week %}" type="button" class="btn btn-outline-info">Last week</a>
-              <a href="{% url 'activity-yearly' year %}" type="button" class="btn btn-outline-info">This year</a>
-            </div>
-          </li>
         </ul>
       </div>
     </div>
@@ -49,9 +29,7 @@
           <li class="list-group-item">Weekly: {{ weekly_mileage|floatformat:2 }} miles</li>
           <li class="list-group-item">Monthly: {{ monthly_mileage|floatformat:2 }} miles</li>
           <li class="list-group-item">Yearly: {{ yearly_mileage|floatformat:2 }} miles</li>
-          {% for shoe in shoes %}
-          <li class="list-group-item">Shoe: {{ shoe.brand }} <span class="badge badge-{{ shoe.status }}">{{ shoe.distance|floatformat:2 }} miles</span></li>
-          {% endfor %}
+          {% active_shoes user %}
         </ul>
       </div>
     </div>
@@ -62,7 +40,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h2>{{ month }} Runs</h2>
+      <h2>{% now "F" %} Runs</h2>
       <table class="table table-striped table-sm">
         <thead>
           <tr>
@@ -101,10 +79,13 @@
     </div>
   </div>
 </div>
-
 {% else %}
-
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">Log in to use the run tracker.</h1>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
     	<p>Log in to use the training application.</p>
@@ -112,5 +93,4 @@
   </div>
 </div>
 {% endif %}
-
 {% endblock %}
